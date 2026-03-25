@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Assessment Form</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🎓 CIT Career Guide</div>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/form" class="active">Get Recommendation</a>
+            </nav>
+        </header>
+
+        <main class="form-content">
+            <div class="form-header">
+                <h1>Career Assessment Form</h1>
+                <p>Answer the following questions honestly to get the most accurate recommendation</p>
+            </div>
+
+            <form id="careerForm" action="/predict" method="POST" onsubmit="return validateForm()">
+                <div class="form-section">
+                    <h2>Technical Interests</h2>
+                    
+                    <div class="form-group">
+                        <label for="programming">
+                            <span class="label-icon">💻</span>
+                            Interest in Programming
+                        </label>
+                        <p class="field-description">Writing code, developing applications, solving problems through programming</p>
+                        <select name="programming" id="programming" required>
+                            <option value="">-- Select Level --</option>
+                            <option value="Low">Low - Not very interested</option>
+                            <option value="Medium">Medium - Somewhat interested</option>
+                            <option value="High">High - Very interested</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="networking">
+                            <span class="label-icon">🌐</span>
+                            Interest in Networking
+                        </label>
+                        <p class="field-description">Computer networks, routers, switches, network protocols</p>
+                        <select name="networking" id="networking" required>
+                            <option value="">-- Select Level --</option>
+                            <option value="Low">Low - Not very interested</option>
+                            <option value="Medium">Medium - Somewhat interested</option>
+                            <option value="High">High - Very interested</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cybersecurity">
+                            <span class="label-icon">🔒</span>
+                            Interest in Cybersecurity
+                        </label>
+                        <p class="field-description">Security systems, protecting data, ethical hacking, threat analysis</p>
+                        <select name="cybersecurity" id="cybersecurity" required>
+                            <option value="">-- Select Level --</option>
+                            <option value="Low">Low - Not very interested</option>
+                            <option value="Medium">Medium - Somewhat interested</option>
+                            <option value="High">High - Very interested</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data_analysis">
+                            <span class="label-icon">📊</span>
+                            Interest in Data Analysis
+                        </label>
+                        <p class="field-description">Working with data, statistics, creating visualizations, finding insights</p>
+                        <select name="data_analysis" id="data_analysis" required>
+                            <option value="">-- Select Level --</option>
+                            <option value="Low">Low - Not very interested</option>
+                            <option value="Medium">Medium - Somewhat interested</option>
+                            <option value="High">High - Very interested</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Skills & Performance</h2>
+                    
+                    <div class="form-group">
+                        <label for="problem_solving">
+                            <span class="label-icon">🧩</span>
+                            Problem-Solving Skill Level
+                        </label>
+                        <p class="field-description">Your ability to analyze and solve complex technical problems</p>
+                        <select name="problem_solving" id="problem_solving" required>
+                            <option value="">-- Select Level --</option>
+                            <option value="Low">Low - Still developing</option>
+                            <option value="Medium">Medium - Competent</option>
+                            <option value="High">High - Strong skills</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="academic">
+                            <span class="label-icon">📚</span>
+                            Academic Performance
+                        </label>
+                        <p class="field-description">Your overall academic performance in CIT courses</p>
+                        <select name="academic" id="academic" required>
+                            <option value="">-- Select Level --</option>
+                            <option value="Pass">Pass - 40% to 59%</option>
+                            <option value="Second Class">Second Class - 60% to 69%</option>
+                            <option value="First Class">First Class - 70% and above</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Get My Recommendation</button>
+                    <a href="/" class="btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 CIT Career Recommendation System | Powered by Machine Learning</p>
+        </footer>
+    </div>
+
+    <script>
+        function validateForm() {
+            const fields = [
+                'programming', 
+                'networking', 
+                'cybersecurity', 
+                'data_analysis', 
+                'problem_solving', 
+                'academic'
+            ];
+            
+            let isValid = true;
+            let emptyFields = [];
+            
+            fields.forEach(field => {
+                const value = document.getElementById(field).value;
+                if (!value || value === "") {
+                    isValid = false;
+                    emptyFields.push(field.replace('_', ' '));
+                }
+            });
+            
+            if (!isValid) {
+                alert('Please fill in all fields:\n- ' + emptyFields.join('\n- '));
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Add visual feedback on selection
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', function() {
+                if (this.value) {
+                    this.style.borderColor = '#10b981';
+                } else {
+                    this.style.borderColor = '#d1d5db';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

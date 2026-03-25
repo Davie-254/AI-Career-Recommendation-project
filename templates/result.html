@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Career Recommendation</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🎓 CIT Career Guide</div>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/form">Get Recommendation</a>
+            </nav>
+        </header>
+
+        <main class="result-content">
+            {% if error %}
+                <div class="error-message">
+                    <div class="error-icon">⚠️</div>
+                    <h2>Oops! Something went wrong</h2>
+                    <p>{{ error }}</p>
+                    <a href="/form" class="btn-primary">Try Again</a>
+                </div>
+            {% else %}
+                <div class="result-header">
+                    <div class="success-icon">✅</div>
+                    <h1>Your Career Recommendation</h1>
+                </div>
+
+                <div class="result-card">
+                    <div class="career-title">
+                        <h2>{{ career }}</h2>
+                        <div class="confidence-badge">
+                            <span class="confidence-label">Confidence:</span>
+                            <span class="confidence-value">{{ confidence }}%</span>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>📝 Overview</h3>
+                        <p class="career-description">{{ description }}</p>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>💡 Why This Career?</h3>
+                        <p class="career-explanation">{{ explanation }}</p>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>🎯 Key Skills Required</h3>
+                        <div class="skills-list">
+                            {% for skill in skills.split(', ') %}
+                                <span class="skill-tag">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>🛠️ Tools & Technologies</h3>
+                        <div class="tools-list">
+                            {% for tool in tools.split(', ') %}
+                                <span class="tool-tag">{{ tool }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="next-steps">
+                    <h3>What's Next?</h3>
+                    <div class="steps-grid">
+                        <div class="next-step-card">
+                            <div class="step-icon">📖</div>
+                            <h4>Learn More</h4>
+                            <p>Research about this career path and its requirements</p>
+                        </div>
+                        <div class="next-step-card">
+                            <div class="step-icon">🎓</div>
+                            <h4>Develop Skills</h4>
+                            <p>Focus on relevant courses and certifications</p>
+                        </div>
+                        <div class="next-step-card">
+                            <div class="step-icon">💼</div>
+                            <h4>Get Experience</h4>
+                            <p>Look for internships or projects in this field</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <a href="/form" class="btn-primary">Try Different Inputs</a>
+                    <a href="/" class="btn-secondary">Back to Home</a>
+                    <button onclick="window.print()" class="btn-secondary">Print Results</button>
+                </div>
+            {% endif %}
+        </main>
+
+        <footer>
+            <p>&copy; 2026 CIT Career Recommendation System | Powered by Machine Learning</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add animation on load
+        window.addEventListener('load', function() {
+            const resultCard = document.querySelector('.result-card');
+            if (resultCard) {
+                resultCard.style.opacity = '0';
+                resultCard.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    resultCard.style.transition = 'all 0.6s ease';
+                    resultCard.style.opacity = '1';
+                    resultCard.style.transform = 'translateY(0)';
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
